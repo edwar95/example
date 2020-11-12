@@ -1,0 +1,73 @@
+scalar Date
+scalar JSON
+
+type Query {
+  findAllLugar(criterioBusqueda:CriterioBusquedaFindAll): RespuestaFindLugar
+  findWhereOrLugar(criterioBusqueda:CriterioBusquedaFindWhereOr!): RespuestaFindLugar
+  findOneLugarById(id:String): Lugar
+}
+
+type Mutation {
+  createOneLugar(nuevoRegistro:CreateLugarDto!): LugarCreadoOActualizado
+  deleteOneLugar(id:String!): RespuestaEliminar
+  updateOneLugar(id:String!, registroAActualizar:UpdateLugarDto!): LugarCreadoOActualizado
+}
+
+
+type Lugar {
+  id: ID
+  createdAt: Date
+  updatedAt: Date
+  # Llenar Tipo
+}
+
+input CreateLugarDto {
+  # Llenar Create Dto
+}
+
+input UpdateLugarDto {
+  # Llenar Update Dto
+}
+
+input CriterioBusquedaFindAll {
+  skip: Int
+  take: Int
+  where: JSON
+  relations: [String]
+  join: JSON
+  order: JSON
+}
+
+input CriterioBusquedaFindWhereOr {
+  camposABuscar: [CamposABuscar]!
+  skip: Int
+  take: Int
+  relations: [FindWhereRelations]
+}
+
+input CamposABuscar {
+  campo: String!
+  valor: String!
+}
+
+input FindWhereRelations{
+  entidad: String!
+  key: String!
+  query: [CamposABuscar]
+}
+
+type RespuestaEliminar{
+  mensaje:String!
+}
+
+type LugarCreadoOActualizado {
+  id: ID
+  createdAt: Date
+  updatedAt: Date
+    # creado o actualizado
+}
+
+type RespuestaFindLugar {
+    registros:[Lugar]
+    numero:Int
+}

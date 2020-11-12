@@ -1,0 +1,73 @@
+scalar Date
+scalar JSON
+
+type Query {
+  findAllVehiculo(criterioBusqueda:CriterioBusquedaFindAll): RespuestaFindVehiculo
+  findWhereOrVehiculo(criterioBusqueda:CriterioBusquedaFindWhereOr!): RespuestaFindVehiculo
+  findOneVehiculoById(id:String): Vehiculo
+}
+
+type Mutation {
+  createOneVehiculo(nuevoRegistro:CreateVehiculoDto!): VehiculoCreadoOActualizado
+  deleteOneVehiculo(id:String!): RespuestaEliminar
+  updateOneVehiculo(id:String!, registroAActualizar:UpdateVehiculoDto!): VehiculoCreadoOActualizado
+}
+
+
+type Vehiculo {
+  id: ID
+  createdAt: Date
+  updatedAt: Date
+  # Llenar Tipo
+}
+
+input CreateVehiculoDto {
+  # Llenar Create Dto
+}
+
+input UpdateVehiculoDto {
+  # Llenar Update Dto
+}
+
+input CriterioBusquedaFindAll {
+  skip: Int
+  take: Int
+  where: JSON
+  relations: [String]
+  join: JSON
+  order: JSON
+}
+
+input CriterioBusquedaFindWhereOr {
+  camposABuscar: [CamposABuscar]!
+  skip: Int
+  take: Int
+  relations: [FindWhereRelations]
+}
+
+input CamposABuscar {
+  campo: String!
+  valor: String!
+}
+
+input FindWhereRelations{
+  entidad: String!
+  key: String!
+  query: [CamposABuscar]
+}
+
+type RespuestaEliminar{
+  mensaje:String!
+}
+
+type VehiculoCreadoOActualizado {
+  id: ID
+  createdAt: Date
+  updatedAt: Date
+    # creado o actualizado
+}
+
+type RespuestaFindVehiculo {
+    registros:[Vehiculo]
+    numero:Int
+}

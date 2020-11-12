@@ -1,0 +1,73 @@
+scalar Date
+scalar JSON
+
+type Query {
+  findAllHorario(criterioBusqueda:CriterioBusquedaFindAll): RespuestaFindHorario
+  findWhereOrHorario(criterioBusqueda:CriterioBusquedaFindWhereOr!): RespuestaFindHorario
+  findOneHorarioById(id:String): Horario
+}
+
+type Mutation {
+  createOneHorario(nuevoRegistro:CreateHorarioDto!): HorarioCreadoOActualizado
+  deleteOneHorario(id:String!): RespuestaEliminar
+  updateOneHorario(id:String!, registroAActualizar:UpdateHorarioDto!): HorarioCreadoOActualizado
+}
+
+
+type Horario {
+  id: ID
+  createdAt: Date
+  updatedAt: Date
+  # Llenar Tipo
+}
+
+input CreateHorarioDto {
+  # Llenar Create Dto
+}
+
+input UpdateHorarioDto {
+  # Llenar Update Dto
+}
+
+input CriterioBusquedaFindAll {
+  skip: Int
+  take: Int
+  where: JSON
+  relations: [String]
+  join: JSON
+  order: JSON
+}
+
+input CriterioBusquedaFindWhereOr {
+  camposABuscar: [CamposABuscar]!
+  skip: Int
+  take: Int
+  relations: [FindWhereRelations]
+}
+
+input CamposABuscar {
+  campo: String!
+  valor: String!
+}
+
+input FindWhereRelations{
+  entidad: String!
+  key: String!
+  query: [CamposABuscar]
+}
+
+type RespuestaEliminar{
+  mensaje:String!
+}
+
+type HorarioCreadoOActualizado {
+  id: ID
+  createdAt: Date
+  updatedAt: Date
+    # creado o actualizado
+}
+
+type RespuestaFindHorario {
+    registros:[Horario]
+    numero:Int
+}

@@ -1,0 +1,73 @@
+scalar Date
+scalar JSON
+
+type Query {
+  findAllDatosUsuario(criterioBusqueda:CriterioBusquedaFindAll): RespuestaFindDatosUsuario
+  findWhereOrDatosUsuario(criterioBusqueda:CriterioBusquedaFindWhereOr!): RespuestaFindDatosUsuario
+  findOneDatosUsuarioById(id:String): DatosUsuario
+}
+
+type Mutation {
+  createOneDatosUsuario(nuevoRegistro:CreateDatosUsuarioDto!): DatosUsuarioCreadoOActualizado
+  deleteOneDatosUsuario(id:String!): RespuestaEliminar
+  updateOneDatosUsuario(id:String!, registroAActualizar:UpdateDatosUsuarioDto!): DatosUsuarioCreadoOActualizado
+}
+
+
+type DatosUsuario {
+  id: ID
+  createdAt: Date
+  updatedAt: Date
+  # Llenar Tipo
+}
+
+input CreateDatosUsuarioDto {
+  # Llenar Create Dto
+}
+
+input UpdateDatosUsuarioDto {
+  # Llenar Update Dto
+}
+
+input CriterioBusquedaFindAll {
+  skip: Int
+  take: Int
+  where: JSON
+  relations: [String]
+  join: JSON
+  order: JSON
+}
+
+input CriterioBusquedaFindWhereOr {
+  camposABuscar: [CamposABuscar]!
+  skip: Int
+  take: Int
+  relations: [FindWhereRelations]
+}
+
+input CamposABuscar {
+  campo: String!
+  valor: String!
+}
+
+input FindWhereRelations{
+  entidad: String!
+  key: String!
+  query: [CamposABuscar]
+}
+
+type RespuestaEliminar{
+  mensaje:String!
+}
+
+type DatosUsuarioCreadoOActualizado {
+  id: ID
+  createdAt: Date
+  updatedAt: Date
+    # creado o actualizado
+}
+
+type RespuestaFindDatosUsuario {
+    registros:[DatosUsuario]
+    numero:Int
+}

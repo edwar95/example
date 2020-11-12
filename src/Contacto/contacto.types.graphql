@@ -1,0 +1,73 @@
+scalar Date
+scalar JSON
+
+type Query {
+  findAllContacto(criterioBusqueda:CriterioBusquedaFindAll): RespuestaFindContacto
+  findWhereOrContacto(criterioBusqueda:CriterioBusquedaFindWhereOr!): RespuestaFindContacto
+  findOneContactoById(id:String): Contacto
+}
+
+type Mutation {
+  createOneContacto(nuevoRegistro:CreateContactoDto!): ContactoCreadoOActualizado
+  deleteOneContacto(id:String!): RespuestaEliminar
+  updateOneContacto(id:String!, registroAActualizar:UpdateContactoDto!): ContactoCreadoOActualizado
+}
+
+
+type Contacto {
+  id: ID
+  createdAt: Date
+  updatedAt: Date
+  # Llenar Tipo
+}
+
+input CreateContactoDto {
+  # Llenar Create Dto
+}
+
+input UpdateContactoDto {
+  # Llenar Update Dto
+}
+
+input CriterioBusquedaFindAll {
+  skip: Int
+  take: Int
+  where: JSON
+  relations: [String]
+  join: JSON
+  order: JSON
+}
+
+input CriterioBusquedaFindWhereOr {
+  camposABuscar: [CamposABuscar]!
+  skip: Int
+  take: Int
+  relations: [FindWhereRelations]
+}
+
+input CamposABuscar {
+  campo: String!
+  valor: String!
+}
+
+input FindWhereRelations{
+  entidad: String!
+  key: String!
+  query: [CamposABuscar]
+}
+
+type RespuestaEliminar{
+  mensaje:String!
+}
+
+type ContactoCreadoOActualizado {
+  id: ID
+  createdAt: Date
+  updatedAt: Date
+    # creado o actualizado
+}
+
+type RespuestaFindContacto {
+    registros:[Contacto]
+    numero:Int
+}

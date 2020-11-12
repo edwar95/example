@@ -1,0 +1,73 @@
+scalar Date
+scalar JSON
+
+type Query {
+  findAllPicoPlacas(criterioBusqueda:CriterioBusquedaFindAll): RespuestaFindPicoPlacas
+  findWhereOrPicoPlacas(criterioBusqueda:CriterioBusquedaFindWhereOr!): RespuestaFindPicoPlacas
+  findOnePicoPlacasById(id:String): PicoPlacas
+}
+
+type Mutation {
+  createOnePicoPlacas(nuevoRegistro:CreatePicoPlacasDto!): PicoPlacasCreadoOActualizado
+  deleteOnePicoPlacas(id:String!): RespuestaEliminar
+  updateOnePicoPlacas(id:String!, registroAActualizar:UpdatePicoPlacasDto!): PicoPlacasCreadoOActualizado
+}
+
+
+type PicoPlacas {
+  id: ID
+  createdAt: Date
+  updatedAt: Date
+  # Llenar Tipo
+}
+
+input CreatePicoPlacasDto {
+  # Llenar Create Dto
+}
+
+input UpdatePicoPlacasDto {
+  # Llenar Update Dto
+}
+
+input CriterioBusquedaFindAll {
+  skip: Int
+  take: Int
+  where: JSON
+  relations: [String]
+  join: JSON
+  order: JSON
+}
+
+input CriterioBusquedaFindWhereOr {
+  camposABuscar: [CamposABuscar]!
+  skip: Int
+  take: Int
+  relations: [FindWhereRelations]
+}
+
+input CamposABuscar {
+  campo: String!
+  valor: String!
+}
+
+input FindWhereRelations{
+  entidad: String!
+  key: String!
+  query: [CamposABuscar]
+}
+
+type RespuestaEliminar{
+  mensaje:String!
+}
+
+type PicoPlacasCreadoOActualizado {
+  id: ID
+  createdAt: Date
+  updatedAt: Date
+    # creado o actualizado
+}
+
+type RespuestaFindPicoPlacas {
+    registros:[PicoPlacas]
+    numero:Int
+}
