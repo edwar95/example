@@ -1,5 +1,6 @@
 import { PrincipalEntity } from '@manticore-labs/nest';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
+import { DispositivoUsuarioEntity } from '../dispositivo-usuario/dispositivo-usuario.entity';
 
 @Entity('datos-usuario')
 export class DatosUsuarioEntity extends PrincipalEntity {
@@ -30,5 +31,8 @@ export class DatosUsuarioEntity extends PrincipalEntity {
     name:"habilitado_auth0",
   })
   habilitado_auth0: 1 | 0 = 0 ;
+
+  @OneToMany(() => DispositivoUsuarioEntity, dispositivoUsuario => dispositivoUsuario.datosUsuarioId )
+  dispositivo_usuario: DispositivoUsuarioEntity[]
 
 }

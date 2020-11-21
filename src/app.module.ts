@@ -16,6 +16,8 @@ import { HorarioEntity } from './Horario/horario.entity';
 import { PicoPlacasEntity } from './PicoPlacas/pico-placas.entity';
 import { LugarModule } from './Lugar/lugar.module';
 import { LugarEntity } from './Lugar/lugar.entity';
+import { DispositivoUsuarioModule } from './dispositivo-usuario/dispositivo-usuario.module';
+import { DispositivoUsuarioEntity } from './dispositivo-usuario/dispositivo-usuario.entity';
 
 
 @Module({
@@ -40,11 +42,13 @@ import { LugarEntity } from './Lugar/lugar.entity';
         VehiculoEntity,
         HorarioEntity,
         PicoPlacasEntity,
-        LugarEntity
+        LugarEntity,
+        DispositivoUsuarioEntity
       ],
       synchronize: true,
       ssl:false
-    })],
+    }),
+    DispositivoUsuarioModule],
   controllers: [AppController],
   providers: [AppService],
 })
